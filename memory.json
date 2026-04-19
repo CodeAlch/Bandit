@@ -3,36 +3,6 @@
     "1470850159956066306": [
       {
         "role": "bot",
-        "content": "Ayush, sab badhiya! \ud83d\ude80 Kya kar rahe ho? Need something built or just chilling?",
-        "time": "00:55:44"
-      },
-      {
-        "role": "user",
-        "content": "well for now chilling, hey by the way do you remember what we were discussion on your last session means yesterday",
-        "time": "00:56:39"
-      },
-      {
-        "role": "bot",
-        "content": "Ayush, I remember we were having some trouble deleting the 'Gaming Chat' category and its channels. I managed to delete the individual channels inside, but I couldn't delete the category itself because of a bug. I apologize for that! I'm still under development, so I occasionally hit these snags. \ud83d\ude05\n\nAre you still trying to delete the 'Gaming Chat' category? I've been updated and should be able to handle it now. Let me know!",
-        "time": "00:56:44"
-      },
-      {
-        "role": "user",
-        "content": "naah its fine you have deleted that channel but by not NLP form instead it was direct command which was !delcategory <category name>",
-        "time": "00:57:43"
-      },
-      {
-        "role": "bot",
-        "content": "Okay, Ayush, I understand. You're saying that I deleted the channels using direct commands instead of natural language processing. Got it! Just trying to be helpful however I can. \ud83d\ude09 Is there anything else I can do for you right now, or are you still just chilling?",
-        "time": "00:57:46"
-      },
-      {
-        "role": "user",
-        "content": "hey kya thum entertainment category delete kerskte ho",
-        "time": "00:58:29"
-      },
-      {
-        "role": "bot",
         "content": "Ayush, bilkul! Mai `entertainment category if this category doesn't exit then create it` category ko delete kar sakta hu. Kar du?",
         "time": "00:58:45"
       },
@@ -100,6 +70,36 @@
         "role": "bot",
         "content": "Hey Ayush! \ud83d\udc4b What's up? Need something built or just hanging out?",
         "time": "23:32:00"
+      },
+      {
+        "role": "user",
+        "content": "heyy",
+        "time": "23:54:55"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey Ayush! \ud83d\udc4b What's up? Need something built or just hanging out?",
+        "time": "23:54:57"
+      },
+      {
+        "role": "user",
+        "content": "kya haal",
+        "time": "23:55:07"
+      },
+      {
+        "role": "assistant",
+        "content": "Main theek hoon, Ayush! \ud83d\ude0a Server ko manage karne ke liye ready hoon. Tum kaise ho? Kuch bhi chahiye batao!",
+        "time": "23:55:13"
+      },
+      {
+        "role": "user",
+        "content": "dont use emojis while chatting understood? use symbols like > - | got it?",
+        "time": "23:55:48"
+      },
+      {
+        "role": "assistant",
+        "content": "> Understood, Ayush. I'll avoid emojis and use symbols like > - | for formatting. Let me know how I can help!",
+        "time": "23:55:52"
       }
     ]
   },

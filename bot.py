@@ -602,28 +602,6 @@ async def status(ctx):
     embed.add_field(name="Members", value=ctx.guild.member_count, inline=True)
     await ctx.send(embed=embed)
 
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send(f"❓ Try `!bothelp`")
-    elif isinstance(error, commands.CommandInvokeError):
-        original = getattr(error, 'original', error)
-        print(f"❌ Command error: {type(original).__name__}: {original}")
-        import traceback
-        traceback.print_exc()
-        await ctx.send(f"❌ Something broke: {str(original)[:150]}\nTry again or use `!bothelp`")
-    else:
-        print(f"❌ {type(error).__name__}: {error}")
-        await ctx.send(f"❌ {str(error)[:150]}")
-
-if __name__ == '__main__':
-    print("🚀 Bot v6")
-    try:
-        bot.run(TOKEN)
-    except discord.LoginFailure:
-        print("❌ Bad token!")
-    except Exception as e:
-        print(f"❌ {e}")
-        
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
@@ -631,12 +609,54 @@ async def on_command_error(ctx, error):
     elif isinstance(error, commands.CommandInvokeError):
         original = getattr(error, 'original', error)
         print(f"❌ Command error: {type(original).__name__}: {original}")
-        import traceback
         traceback.print_exc()
         await ctx.send(f"❌ Something broke: {str(original)[:150]}\nTry again or use `!bothelp`")
     else:
         print(f"❌ {type(error).__name__}: {error}")
         await ctx.send(f"❌ {str(error)[:150]}")
+
+
+@bot.listen("on_message")
+async def handle_plain_message(message):
+    if message.author.bot:
+        return
+    if not message.guild:
+        return
+    if message.content.startswith('!'):
+        return
+
+    user_input = message.content.strip()
+    if not user_input:
+        return
+
+    guild = message.guild
+    channel_id = str(message.channel.id)
+    username = message.author.name
+    nickname = message.author.display_name
+
+    try:
+        async with message.channel.typing():
+            snapshot = brain.get_server_snapshot(guild) if brain else ""
+            conv_history = brain.format_conversation_for_ai(channel_id) if brain else ""
+            if brain:
+                brain.add_message(channel_id, "user", user_input)
+            result = await command_parser.parse(
+                instruction=user_input,
+                server_snapshot=snapshot,
+                conversation_history=conv_history,
+                guild_id=str(guild.id),
+                requester_name=username,
+                requester_nick=nickname
+            )
+            reply = result.get("message", "")
+            if reply:
+                await message.channel.send(reply)
+                if brain:
+                    brain.add_message(channel_id, "assistant", reply)
+    except Exception as e:
+        print(f"❌ Plain message error: {e}")
+        traceback.print_exc()
+
 
 if __name__ == '__main__':
     print("🚀 Bot v6")
