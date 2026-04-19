@@ -602,6 +602,28 @@ async def status(ctx):
     embed.add_field(name="Members", value=ctx.guild.member_count, inline=True)
     await ctx.send(embed=embed)
 
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send(f"❓ Try `!bothelp`")
+    elif isinstance(error, commands.CommandInvokeError):
+        original = getattr(error, 'original', error)
+        print(f"❌ Command error: {type(original).__name__}: {original}")
+        import traceback
+        traceback.print_exc()
+        await ctx.send(f"❌ Something broke: {str(original)[:150]}\nTry again or use `!bothelp`")
+    else:
+        print(f"❌ {type(error).__name__}: {error}")
+        await ctx.send(f"❌ {str(error)[:150]}")
+
+if __name__ == '__main__':
+    print("🚀 Bot v6")
+    try:
+        bot.run(TOKEN)
+    except discord.LoginFailure:
+        print("❌ Bad token!")
+    except Exception as e:
+        print(f"❌ {e}")
+        
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):

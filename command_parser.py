@@ -5,6 +5,8 @@ Command Parser v13 — Adaptive language, nickname support, multi-message
 
 import re
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import json
 import traceback
 import asyncio
@@ -229,7 +231,7 @@ class CommandParser:
         # FIX: Store brain's conversation history so _ai() can use it
         self._last_conversation_history = conversation_history or ""
 
-        if self.has_gemini:
+        if self.has_nvidia:
             try:
                 return await self._ai(instruction, server_snapshot, error_lessons,
                                       recent_actions, guild_id, requester_name, requester_nick)
