@@ -11,7 +11,6 @@ from datetime import datetime
 MEMORY_FILE = "memory.json"
 AUDIT_FILE = "audit_log.md"
 
-
 class BotBrain:
     def __init__(self):
         self.memory = self._load_memory()

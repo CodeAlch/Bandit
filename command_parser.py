@@ -14,7 +14,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
-    api_key="nvapi-XXXXXXXXXXXXXXXXXXXXXXXXXX"   # ← yahan apni NVIDIA key already daal rakhi hai na?
+    api_key="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"
 )
 
 MODEL_NAME = "nvidia/nemotron-3-super-120b-a12b"
@@ -25,7 +25,7 @@ BOT_SYSTEM = """You are "AutoBot" — a smart, funny Discord server manager bot.
 
 ABOUT YOU:
 - Created by Ayush, a developer from Jamia Millia Islamia university, New Delhi
-- Built with Python, Discord.py, and Google Gemini AI
+- Built with Python, Discord.py, and NVIDIA Nemotron
 - You have knowledge about technology, programming, APIs, and general topics
 - You can have detailed conversations about any topic
 - You're helpful, witty, and knowledgeable
@@ -100,7 +100,7 @@ User (English): "hello"
 → {"message": "Hey! 👋 What's up? Need something built or just hanging out?", "actions": []}
 
 User: "who are you?"
-→ {"message": "I'm AutoBot! 🤖 A Discord server manager built by Ayush — a developer from Jamia Millia Islamia, New Delhi. I can create channels, manage roles, organize your server, and even have conversations like this one. Built with Python and Google Gemini AI. What can I do for you?", "actions": []}
+→ {"message": "I'm AutoBot! 🤖 A Discord server manager built by Ayush — a developer from Jamia Millia Islamia, New Delhi. I can create channels, manage roles, organize your server, and even have conversations like this one. Built with Python and NVIDIA Nemotron AI. What can I do for you?", "actions": []}
 
 User: "explain API rate limits"
 → {"message": "Sure! API rate limits control how many requests you can make to an API in a given time period.\\n\\n**How it works:**\\n- Free tier: Usually 15 requests/minute, 1500/day\\n- Paid tier: Much higher limits\\n- If you exceed: You get a 429 error (Too Many Requests)\\n\\n**For Google Gemini:**\\n- Free: 15 RPM, 1M tokens/day\\n- With $10 credit: Same free tier, credits cover overages\\n- Pro plan: Higher limits\\n\\nThe key thing: Your $10 monthly credit covers any usage beyond the free tier. At your usage level, you'll likely stay within free limits!", "actions": []}
