@@ -638,6 +638,13 @@ async def handle_plain_message(message):
         async with message.channel.typing():
             snapshot = brain.get_server_snapshot(guild) if brain else ""
             conv_history = brain.format_conversation_for_ai(channel_id) if brain else ""
+            cross_channel = brain.search_all_channels(user_input) if brain else ""
+            if cross_channel:
+                conv_history = conv_history + "\n\n" + cross_channel
+            recent_actions = brain.get_recent_actions(10) if brain else ""
+            audit_search = brain.search_audit_log(user_input) if brain else ""
+            if audit_search:
+                conv_history = conv_history + "\n\n" + audit_search
             if brain:
                 brain.add_message(channel_id, "user", user_input)
             result = await command_parser.parse(
@@ -646,7 +653,8 @@ async def handle_plain_message(message):
                 conversation_history=conv_history,
                 guild_id=str(guild.id),
                 requester_name=username,
-                requester_nick=nickname
+                requester_nick=nickname,
+                recent_actions=recent_actions
             )
             reply = result.get("message", "")
             if reply:

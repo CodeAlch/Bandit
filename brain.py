@@ -3,7 +3,9 @@
 Bot Brain — Memory, Audit Logs, Conversation History
 """
 
+from ast import keyword
 import json
+import keyword
 import os
 import discord
 from datetime import datetime
@@ -200,3 +202,61 @@ class BotBrain:
 
     def get_preferences(self, user_id: str) -> dict:
         return self.memory.get('user_preferences', {}).get(str(user_id), {})
+    
+    # ==========================================
+    # CROSS-CHANNEL CONTEXT SEARCH
+    # ==========================================
+
+    def search_all_channels(self, keyword: str) -> str:
+        """Search keyword across all saved channel conversations"""
+        keyword = keyword.lower().strip()
+        results = []
+
+        for channel_id, messages in self.memory.get('conversations', {}).items():
+            matched = []
+            for msg in messages:
+                if keyword in msg.get('content', '').lower():
+                    role = "User" if msg['role'] == 'user' else "Bot"
+                    matched.append(f"    [{msg.get('time','??:??')}] {role}: {msg['content'][:100]}")
+            if matched:
+                results.append(f"  [Channel #{channel_id}]")
+                results.extend(matched[:3])  # max 3 per channel
+
+        if not results:
+            return ""
+        return "CROSS-CHANNEL MEMORY:\n" + "\n".join(results)
+    
+    def search_audit_log(self, keyword: str) -> str:
+        """Search audit_log.md - also returns recent entries for memory questions"""
+        try:
+            with open(AUDIT_FILE, 'r') as f:
+                content = f.read()
+        
+            entries = content.split('### ')
+            matched = []
+            keyword_lower = keyword.lower()
+        
+            # Keywords jo memory/history se related hain
+            memory_words = ['kisne', 'kab', 'who', 'when', 'last', 'recent',
+                       'history', 'yaad', 'remember', 'created', 'deleted',
+                       'banaya', 'hataya', 'kiya', 'channel', 'audit']
+        
+            is_memory_query = any(w in keyword_lower for w in memory_words)
+        
+            for entry in entries[1:]:
+                entry_lower = entry.lower()
+                # Direct keyword match
+                if keyword_lower in entry_lower:
+                    matched.append("### " + entry.strip()[:400])
+                # Memory query = return recent entries
+                elif is_memory_query:
+                    matched.append("### " + entry.strip()[:400])
+        
+            if not matched:
+                return ""
+        
+            # Last 5 relevant entries
+            final = matched[-5:]
+            return "AUDIT LOG (bot actions history):\n\n" + "\n\n".join(final)
+        except:
+            return ""

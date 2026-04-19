@@ -175,12 +175,16 @@ class CommandParser:
                 print("⏳ Rate limit hit, waiting 12 seconds...")
                 await asyncio.sleep(12)
                 try:
-                    # Retry once
-                    resp = client.chat.completions.create(
-                        model=MODEL_NAME,
-                        messages=messages,
-                        temperature=0.6,
-                        max_tokens=1500
+                    loop = asyncio.get_event_loop()
+                    resp = await loop.run_in_executor(
+                        None,
+                        lambda: client.chat.completions.create(
+                            model=MODEL_NAME,
+                            messages=messages,
+                            temperature=0.6,
+                            max_tokens=2000,
+                            top_p=0.95
+                        )
                     )
                     if resp.choices and resp.choices[0].message.content:
                         return resp.choices[0].message.content.strip()
