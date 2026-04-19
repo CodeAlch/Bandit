@@ -14,7 +14,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
-    api_key="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"
+    api_key=os.getenv("NVIDIA_API_KEY")
 )
 
 MODEL_NAME = "nvidia/nemotron-3-super-120b-a12b"
