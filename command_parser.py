@@ -116,57 +116,74 @@ User: "make sentinals private with Sentinel Guard role"
 
 class CommandParser:
     def __init__(self):
-        self.has_gemini = gemini_client is not None
+        self.has_nvidia = True  # Ab hum NVIDIA use kar rahe hain
         self.histories = {}
         self.last_req = 0
 
-        if self.has_gemini:
-            try:
-                test = gemini_client.models.generate_content(
-                    model=GEMINI_MODEL,
-                    contents='Reply: {"message":"ready","actions":[]}',
-                    config=types.GenerateContentConfig(temperature=0, max_output_tokens=50))
-                print(f"✅ Test OK: {test.text.strip()[:40]}")
-                print(f"🧠 Parser: {GEMINI_MODEL} ✓")
-            except Exception as e:
-                print(f"⚠️ Test: {e}")
-                print(f"🧠 Parser: {GEMINI_MODEL} (will try)")
-        else:
-            print("🧠 Parser: Regex only")
+        # Test call
+        try:
+            test = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[{"role": "user", "content": "Reply only: ready"}],
+                temperature=0,
+                max_tokens=20
+            )
+            print(f"✅ NVIDIA Test OK: {test.choices[0].message.content.strip()[:40]}")
+            print(f"🧠 Parser: Nemotron-3-Super ✓")
+        except Exception as e:
+            print(f"⚠️ NVIDIA Test Failed: {e}")
+            print(f"🧠 Parser: Nemotron-3-Super (will try anyway)")
 
     def get_provider_name(self):
-        return f'🟢 {GEMINI_MODEL}' if self.has_gemini else '🟡 Regex'
+        return "🔵 Nemotron-3-Super (NVIDIA)"
 
     async def _wait(self):
+        """Rate limit control"""
         elapsed = time.time() - self.last_req
-        if elapsed < 4: await asyncio.sleep(4 - elapsed)
+        if elapsed < 3:  # NVIDIA ke liye thoda tight rakhte hain
+            await asyncio.sleep(3 - elapsed)
         self.last_req = time.time()
 
     async def _call(self, prompt, use_system=True):
         await self._wait()
-        cfg = {"temperature": 0.5, "max_output_tokens": 2000}
-        if use_system: cfg["system_instruction"] = BOT_SYSTEM
+        
+        messages = []
+        if use_system:
+            messages.append({"role": "system", "content": BOT_SYSTEM})
+        messages.append({"role": "user", "content": prompt})
+
         try:
-            resp = gemini_client.models.generate_content(
-                model=GEMINI_MODEL, contents=prompt,
-                config=types.GenerateContentConfig(**cfg))
-            if resp.text: return resp.text
-            if resp.candidates:
-                for c in resp.candidates:
-                    if c.content and c.content.parts:
-                        for p in c.content.parts:
-                            if p.text: return p.text
+            resp = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=messages,
+                temperature=0.6,
+                max_tokens=2000,
+                top_p=0.95
+            )
+            if resp.choices and resp.choices[0].message.content:
+                return resp.choices[0].message.content.strip()
             return ""
+            
         except Exception as e:
-            err = str(e)
-            if '429' in err or 'exhausted' in err.lower():
-                await asyncio.sleep(10)
+            err = str(e).lower()
+            print(f"❌ NVIDIA API Error: {e}")
+            
+            # Rate limit handling
+            if '429' in err or 'rate limit' in err or 'quota' in err:
+                print("⏳ Rate limit hit, waiting 12 seconds...")
+                await asyncio.sleep(12)
                 try:
-                    resp = gemini_client.models.generate_content(
-                        model=GEMINI_MODEL, contents=prompt,
-                        config=types.GenerateContentConfig(**cfg))
-                    if resp.text: return resp.text
-                except: pass
+                    # Retry once
+                    resp = client.chat.completions.create(
+                        model=MODEL_NAME,
+                        messages=messages,
+                        temperature=0.6,
+                        max_tokens=1500
+                    )
+                    if resp.choices and resp.choices[0].message.content:
+                        return resp.choices[0].message.content.strip()
+                except:
+                    pass
             return ""
 
     def _json(self, text):
