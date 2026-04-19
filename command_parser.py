@@ -9,29 +9,16 @@ import json
 import traceback
 import asyncio
 import time
+# ==================== NVIDIA NEMOTRON 3 SUPER ====================
+from openai import OpenAI
 
-from dotenv import load_dotenv
-load_dotenv()
+client = OpenAI(
+    base_url="https://integrate.api.nvidia.com/v1",
+    api_key="nvapi-XXXXXXXXXXXXXXXXXXXXXXXXXX"   # ← yahan apni NVIDIA key already daal rakhi hai na?
+)
 
-GEMINI_KEY = os.getenv('GEMINI_API_KEY')
-GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.0-flash')
-
-gemini_client = None
-genai = None
-types = None
-
-if GEMINI_KEY:
-    try:
-        from google import genai as _genai
-        from google.genai import types as _types
-        genai = _genai
-        types = _types
-        gemini_client = genai.Client(api_key=GEMINI_KEY)
-        print(f"✅ Gemini: {GEMINI_MODEL}")
-    except Exception as e:
-        print(f"❌ Gemini: {e}")
-else:
-    print("❌ No GEMINI_API_KEY")
+MODEL_NAME = "nvidia/nemotron-3-super-120b-a12b"
+# ============================================================
 
 
 BOT_SYSTEM = """You are "AutoBot" — a smart, funny Discord server manager bot.
