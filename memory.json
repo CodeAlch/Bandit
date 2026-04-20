@@ -3,103 +3,103 @@
     "1470850159956066306": [
       {
         "role": "user",
-        "content": "hey can you let me know which words or anythign i wrote in the welcome chat?",
-        "time": "00:13:51"
+        "content": "create a text channel called testing123",
+        "time": "23:38:30"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b I don\u2019t have a record of what you wrote in the welcome chat \u2013 my memory only keeps the conversation we\u2019ve had in this session. If you can remind me of the words or share them again, I\u2019ll be happy to keep them in mind or help you with anything else you need!",
-        "time": "00:13:55"
+        "content": "Creating testing123 for you! \ud83d\ude80",
+        "time": "23:38:36"
       },
       {
         "role": "user",
-        "content": "what do you mean by _this session_ the message i've sent is in this same server it is just in different text channel",
-        "time": "00:14:58"
+        "content": "create a text channel called testing1234",
+        "time": "23:43:21"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b When I say \"this session\" I mean the ongoing conversation we\u2019ve had in this chat \u2014 the back\u2011and\u2011forth messages between you and me that I can see and remember right now. I don\u2019t have access to the full chat history of every text channel in the server unless those messages are part of our current interaction (for example, if you mention me or we\u2019re talking in the same channel). So if you said something in another channel and didn\u2019t bring it into this conversation, I won\u2019t have it stored unless you repeat it here. Does that clear things up? Let me know if you\u2019d like me to remember anything specific from our chat!",
-        "time": "00:15:10"
+        "content": "Creating testing1234 for you! \ud83d\ude80",
+        "time": "23:43:49"
       },
       {
         "role": "user",
-        "content": "hey kya tum merko btaoge ki welcome channel mein mene kya likha hain just ?",
-        "time": "00:43:04"
+        "content": "delete testing1234",
+        "time": "23:45:18"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b Mujhe welcome channel mein tumne likha hua kuch yaad nahi hai, kyunki meri memory sirf is session ki baatein hoti hai (yeh chat jo hum kar rahe hain). Agar tum dobara likh do ya batayein, toh main yaad rakh lunga ya tumhari madad kar sakta hoon. Kuch aur help chahiye?",
-        "time": "00:43:11"
+        "content": "Deleting testing1234 for you, Ayush! \ud83d\uddd1\ufe0f",
+        "time": "23:45:23"
       },
       {
         "role": "user",
-        "content": "mera number hai 999",
-        "time": "00:50:44"
+        "content": "rename general to lobby",
+        "time": "23:45:37"
       },
       {
         "role": "assistant",
-        "content": "Got it Ayush! I\u2019ve noted your number as 999. Let me know if you\u2019d like to use it for anything specific or need any other help.",
-        "time": "00:50:56"
+        "content": "Renaming general to lobby for you, Ayush! \ud83d\ude80",
+        "time": "23:45:43"
       },
       {
         "role": "user",
-        "content": "ye channel draft vala kisne bnaya tha and kab bnaya tha btana jra?",
-        "time": "01:51:38"
+        "content": "assign role to me (Ayush) role name Owner and color will be red",
+        "time": "23:46:28"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b Draft channel ko tumhi (ayu5h) ne banaya tha, 2026-04-20 ko 01:25:46 par. Ye ek text channel hai jo uncategorized hai (kisi bhi category ke andar nahi). Agar kuch aur jaankari chahiye to batao!",
-        "time": "01:52:04"
+        "content": "Creating Owner role with red color and assigning it to you, Ayush! \ud83d\udc51",
+        "time": "23:46:52"
       },
       {
         "role": "user",
-        "content": "what about <#1471030756913578105> channel? ye kisne and kab bnaya tha?",
-        "time": "01:56:43"
+        "content": "give me all roles name which have Admin permission",
+        "time": "23:47:29"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b Mujhe yeh channel ID (<#1471030756913578105>) ka naam yaad nahi, isliye main bta nahi sakta kisne ya kab banaya tha. Agar tum us channel ka naam bta do (jaise \ud83d\udc4b-welcome, \ud83c\udfae-gaming, general, ya koi aur), toh main bata sakta hoon ki kisne aur kab banaya tha \u2014 bas uske baare mein mere paas record hoga agar maine uska creation kiya ho. Warna, main sirf apne actions ka record rakhta hoon (jaise draft channel ka). Kya tum us channel ka naam share kar sakte ho?",
-        "time": "01:56:57"
+        "content": "Hey Ayush! Based on the current roles, the only role that typically has Administrator permissions is the **Owner** role. If you need to check or modify permissions for any role, just let me know!",
+        "time": "23:47:35"
       },
       {
         "role": "user",
-        "content": "iska name hain \ud83d\udc4b -welcome",
-        "time": "01:57:16"
+        "content": "lobby chat mein slowdown lgao 30 seconds ka",
+        "time": "23:48:50"
       },
       {
         "role": "assistant",
-        "content": "Hey Ayush! \ud83d\udc4b Channel \ud83d\udc4b -welcome ka naam mil gaya. Meri yaad mein sirf wo channel hai jo maine khud banaya hai (draft channel, 2026-04-20 01:25:46). Agar maine yeh channel nahi banaya tha, to uske baare mein mere paas koi record nahi hai. Main sirf apne actions ka record rakhta hoon (jaise draft channel ka). Agar tum kisi aur channel ke baare mein jaanna chahte ho, to uska naam share karo \u2014 agar maine uska creation kiya ho, toh bata sakta hoon kisne aur kab banaya tha. Kuch aur help chahiye?",
-        "time": "01:57:32"
+        "content": "Lobby chat ka slowmode 30 seconds ka set kar diya! \ud83d\ude80",
+        "time": "23:48:57"
       },
       {
         "role": "user",
-        "content": "fine, by the way can you delete the draft named channel?",
-        "time": "01:59:05"
+        "content": "lobby chat mein jo slowdown hain usko reduce kerke 15 seconds kerdo",
+        "time": "23:49:59"
       },
       {
         "role": "assistant",
-        "content": "Sure thing, Ayush! Deleting the draft channel now \ud83d\uddd1\ufe0f",
-        "time": "01:59:26"
+        "content": "Lobby chat ka slowmode 15 seconds kar diya! \ud83d\ude80",
+        "time": "23:50:08"
       },
       {
         "role": "user",
-        "content": "ek channel create kro with the name of \"Channel 44\"",
-        "time": "02:02:55"
+        "content": "owner roles ka precedence 2nd top kerdo",
+        "time": "23:52:50"
       },
       {
         "role": "assistant",
-        "content": "Creating Channel-44 for you! \ud83d\ude80",
-        "time": "02:03:02"
+        "content": "Owner role ki precedence change nahi kar sakte, kyunki woh server owner ka role hota hai aur uski position top par fixed hoti hai. Agar aap kisi aur role ko Owner ke just neeche lana chahte hain, to h",
+        "time": "23:52:59"
       },
       {
         "role": "user",
-        "content": "nehi hua create, lets do it again create a text channel with the name of \"Channel 88\"",
-        "time": "02:03:44"
+        "content": "are owner role mein koi permission nehi hain bhai usko upper leke aao vo roles category mein bottom pe hain sabse because vo just create hua hain",
+        "time": "23:53:47"
       },
       {
         "role": "assistant",
-        "content": "Sure thing, Ayush! Creating Channel-88 for you now \ud83d\ude80",
-        "time": "02:04:07"
+        "content": "Ayush bhai, Owner role ki position change karna Discord ki restrictions ke wajah se bot se nahi ho sakta. Agar ye role server owner ka role hai to uski position top par fixed hoti hai. Agar aapne kisi",
+        "time": "23:54:23"
       }
     ],
     "1471030756913578105": [
@@ -287,7 +287,7 @@
       "time": "2026-04-19T23:21:32.895180"
     }
   ],
-  "audit_count": 90,
+  "audit_count": 97,
   "server_notes": {},
   "created_at": "2026-02-11T13:35:06.394903"
 }

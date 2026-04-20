@@ -657,10 +657,39 @@ async def handle_plain_message(message):
                 recent_actions=recent_actions
             )
             reply = result.get("message", "")
+            actions = result.get("actions", [])
+
+            # Execute actions (channel create/delete etc)
+            action_results = []
+            for action in actions:
+                try:
+                    action_result = await execute_action(
+                        guild, action, channel_manager,
+                        requested_by=nickname
+                    )
+                    if action_result:
+                        action_results.append(str(action_result))
+                    if brain:
+                        brain.log_action(
+                            guild.name, nickname,
+                            action.get("action", "?"),
+                            str(action),
+                            True
+                        )
+                except Exception as ae:
+                    print(f"❌ Action error: {ae}")
+                    action_results.append(f"❌ {str(ae)[:80]}")
+
+            # Send reply
             if reply:
                 await message.channel.send(reply)
-                if brain:
-                    brain.add_message(channel_id, "assistant", reply)
+            if action_results:
+                await message.channel.send("\n".join(action_results))
+            if brain:
+                summary = reply or ", ".join(
+                    a.get("action","?") for a in actions
+                )
+                brain.add_message(channel_id, "assistant", summary[:200])
     except Exception as e:
         print(f"❌ Plain message error: {e}")
         traceback.print_exc()
