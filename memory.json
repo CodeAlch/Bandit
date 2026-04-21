@@ -2,11 +2,6 @@
   "conversations": {
     "1470850159956066306": [
       {
-        "role": "assistant",
-        "content": "Sure thing, Ayush! Creating Moderator role with blue color and kick/ban permissions! \ud83c\udfa8",
-        "time": "13:12:41"
-      },
-      {
         "role": "user",
         "content": "move Owner role to position 3",
         "time": "13:13:22"
@@ -100,6 +95,11 @@
         "role": "user",
         "content": "ignore this message\n\nTO DO:\n\nkon si permission derha hain usko proper output mein represent kre so that confirm hojae ki right perm hi allot hui hain.\n\nsend message revoke nehi horha",
         "time": "15:13:25"
+      },
+      {
+        "role": "assistant",
+        "content": "Okay, ignoring this message as you asked, Ayush! Let me know if you need anything else.",
+        "time": "15:13:45"
       }
     ],
     "1471030756913578105": [
