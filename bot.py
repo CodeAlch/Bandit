@@ -3,6 +3,10 @@
 Discord Automation Bot v6 — Conversational + Smart
 """
 
+from turtle import pos
+
+from operator import pos
+
 import discord
 from discord.ext import commands
 import os
@@ -102,7 +106,10 @@ async def execute_action(guild, action, channel_mgr, requested_by=None, skip_aut
     
     elif act == 'create_role':
         return await channel_mgr.create_role_with_color(
-            guild, action.get('role_name', ''), action.get('color', '#5865F2')
+            guild,
+            action.get('role_name', ''),
+            action.get('color', '#5865F2'),
+            permissions=action.get('permissions', [])
         )
 
     elif act == 'assign_role_to_bot':
@@ -110,8 +117,15 @@ async def execute_action(guild, action, channel_mgr, requested_by=None, skip_aut
             guild, action.get('role_name', '')
         )
 
-    elif act == 'delete_role':
-        return await channel_mgr.delete_role(guild, action.get('role_name', ''))
+    elif act == 'move_role':
+        role = discord.utils.get(guild.roles, name=action.get('role_name', ''))
+        if not role:
+            return f"❌ Role `{action.get('role_name')}` not found!"
+        if role >= guild.me.top_role:
+            return f"❌ Can't move `{role.name}` — it's above my role!"
+        pos = action.get('position', 1)
+        await role.edit(position=pos)
+        return f"✅ `{role.name}` moved to position {pos}!"
 
     elif act == 'remove_role_from_user':
         return await channel_mgr.remove_role_from_user(

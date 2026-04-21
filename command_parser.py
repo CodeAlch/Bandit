@@ -66,7 +66,8 @@ create_category: {"action":"create_category","category_name":"Name"}
 make_public: {"action":"make_public","channel_name":"exact-name"}
 make_private: {"action":"make_private","channel_name":"exact-name","roles":["Role"]}
 set_role: {"action":"set_role","channel_name":"name","role_name":"Role"}
-create_role: {"action":"create_role","role_name":"Name","color":"#HEX"}
+create_role: {"action":"create_role","role_name":"Name","color":"#HEX","permissions":["kick_members","ban_members","manage_messages","mute_members","deafen_members","administrator"]}
+move_role: {"action":"move_role","role_name":"Name","position":2}
 assign_role_to_user: {"action":"assign_role_to_user","role_name":"Role","user_name":"nickname_or_username"}
 assign_role_to_bot: {"action":"assign_role_to_bot","role_name":"Role"}
 delete_role: {"action":"delete_role","role_name":"Name"}

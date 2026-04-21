@@ -7,10 +7,14 @@ Channel Manager v4
 - Better channel finding (handles spaces, emojis, voice names)
 """
 
+from turtle import color
+
 import discord
 import random
 import re
 import traceback
+
+from discord import guild
 
 
 class ChannelManager:
@@ -501,9 +505,10 @@ class ChannelManager:
         except Exception as e:
             return f"❌ Error: {str(e)}"
         
-    async def create_role_with_color(self, guild, role_name, color_hex="#5865F2") -> str:
+    async def create_role_with_color(self, guild, role_name, color_hex="#5865F2", permissions=None) -> str:
         """Create a role with a specific color"""
         try:
+            action_permissions = permissions or []
             existing = discord.utils.find(lambda r: r.name.lower() == role_name.lower(), guild.roles)
             if existing:
                 return f"⏭️ Role `{role_name}` already exists!"
@@ -543,11 +548,21 @@ class ChannelManager:
                 color = discord.Color.blurple()
                 hex_clean = "5865F2"
             
+            # Build permissions if provided
+            perms = discord.Permissions()
+            perm_list = action_permissions if isinstance(action_permissions, list) else []
+            for p in perm_list:
+                p = p.lower().replace(" ", "_")
+                if hasattr(perms, p):
+                    setattr(perms, p, True)
+
             role = await guild.create_role(
                 name=role_name, color=color, mentionable=True,
+                permissions=perms if perm_list else discord.Permissions.none(),
                 reason="Created by AutoBot"
             )
-            return f"🏷️ Role `{role.name}` created with color #{hex_clean}!"
+            perm_str = f" + perms: {', '.join(perm_list)}" if perm_list else ""
+            return f"🏷️ Role `{role.name}` created with color #{hex_clean}{perm_str}!"
         except discord.Forbidden:
             return "❌ No permission to create roles!"
         except Exception as e:

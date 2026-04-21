@@ -183,9 +183,12 @@ class BotBrain:
                     lines.append(f"    STAGE: \"{ch.name}\"")
 
         # Roles
-        role_names = [r.name for r in guild.roles if r.name != '@everyone'][:20]
-        if role_names:
-            lines.append(f"\n  EXISTING ROLES: {', '.join(role_names)}")
+        roles_info = [
+            f"{r.name}(admin={r.permissions.administrator})"
+            for r in guild.roles if r.name != '@everyone'
+        ][:20]
+        if roles_info:
+            lines.append(f"\n  EXISTING ROLES: {', '.join(roles_info)}")
 
         return "\n".join(lines)
 

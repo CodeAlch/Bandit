@@ -586,3 +586,93 @@ Created: 2026-02-11 13:35
 - **User:** Ayush
 - **Details:** {'action': 'set_slowmode', 'channel_name': 'lobby', 'seconds': 15}
 
+### ✅ create_role
+- **Time:** 2026-04-21 12:11:52
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_role', 'role_name': 'ADMIN', 'color': '#FFFF00'}
+
+### ✅ assign_role_to_user
+- **Time:** 2026-04-21 12:11:52
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'assign_role_to_user', 'role_name': 'ADMIN', 'user_name': 'Ayush'}
+
+### ✅ create_role
+- **Time:** 2026-04-21 12:17:02
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_role', 'role_name': 'Podium Guy', 'color': '#800080'}
+
+### ✅ assign_role_to_user
+- **Time:** 2026-04-21 12:17:02
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'assign_role_to_user', 'role_name': 'Podium Guy', 'user_name': 'Ayush'}
+
+### ✅ remove_role_from_user
+- **Time:** 2026-04-21 12:18:28
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'remove_role_from_user', 'role_name': 'Podium Guy', 'user_name': 'Ayush'}
+
+### ✅ move_role
+- **Time:** 2026-04-21 13:07:57
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'move_role', 'role_name': 'Owner', 'position': 2}
+
+### ✅ create_role
+- **Time:** 2026-04-21 13:12:39
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_role', 'role_name': 'Moderator', 'color': '#0000FF', 'permissions': ['kick_members', 'ban_members']}
+
+### ✅ move_role
+- **Time:** 2026-04-21 13:13:31
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'move_role', 'role_name': 'Owner', 'position': 3}
+
+### ✅ move_role
+- **Time:** 2026-04-21 13:15:55
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'move_role', 'role_name': 'Owner', 'position': 10}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Overwatch Player'}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Apex Legends Player'}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Counter-Strike Player'}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'League of Legends Player'}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Valorant Player'}
+
+### ✅ delete_role
+- **Time:** 2026-04-21 13:22:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Gamer'}
+
