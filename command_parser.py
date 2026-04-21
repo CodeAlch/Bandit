@@ -56,6 +56,7 @@ IMPORTANT:
 - "actions" is [] for pure conversation
 - No ``` blocks. No text before {.
 - For technical questions, give a REAL detailed answer, not just "let me explain"
+- SNAPSHOT IS GROUND TRUTH: Always use CURRENT SERVER STRUCTURE for facts about roles/channels. NEVER assume something exists or is deleted based on conversation history. Snapshot = reality. History = context only.
 
 AVAILABLE ACTIONS:
 create_channel: {"action":"create_channel","channel_type":"text"/"voice","channel_name":"name","roles":["Role"],"category":"Cat"}
@@ -274,7 +275,7 @@ class CommandParser:
         is_cmd = any(w in instruction.lower() for w in cmd_words)
 
         if is_cmd and snapshot:
-            parts.append('\n'.join(snapshot.split('\n')[:20]))
+            parts.append(snapshot)
 
         # ADD CONVERSATION HISTORY — THIS IS THE KEY FIX!
         if hist:

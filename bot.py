@@ -112,6 +112,9 @@ async def execute_action(guild, action, channel_mgr, requested_by=None, skip_aut
             permissions=action.get('permissions', [])
         )
 
+    elif act == 'delete_role':
+        return await channel_mgr.delete_role(guild, action.get('role_name', ''))
+
     elif act == 'assign_role_to_bot':
         return await channel_mgr.assign_role_to_bot(
             guild, action.get('role_name', '')

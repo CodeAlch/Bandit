@@ -184,11 +184,14 @@ class BotBrain:
 
         # Roles
         roles_info = [
-            f"{r.name}(admin={r.permissions.administrator})"
-            for r in guild.roles if r.name != '@everyone'
-        ][:20]
+            f"{r.name}(admin={r.permissions.administrator},pos={r.position})"
+            for r in sorted(guild.roles, key=lambda r: r.position, reverse=True)
+            if r.name != '@everyone'
+        ]
         if roles_info:
-            lines.append(f"\n  EXISTING ROLES: {', '.join(roles_info)}")
+            lines.append(f"\n  EXISTING ROLES ({len(roles_info)} total):")
+            for r in roles_info:
+                lines.append(f"    - {r}")
 
         return "\n".join(lines)
 
