@@ -701,6 +701,11 @@ async def handle_plain_message(message):
             audit_search = await search_discord_log_channels(message.guild, user_input)
             if audit_search:
                 conv_history = conv_history + "\n\n" + audit_search
+
+            # DB mein bhi search karo
+            db_search = search_messages_db(user_input)
+            if db_search:
+                conv_history = conv_history + "\n\n" + db_search
             if brain:
                 brain.add_message(channel_id, "user", user_input)
             result = await command_parser.parse(
@@ -787,6 +792,30 @@ async def search_discord_log_channels(guild, keyword):
                     if any(k in full_text.lower() for k in keywords):
                         results.append(f"[{ch_name}] [{timestamp}] {full_text}")
 
+
+def search_messages_db(keyword, limit=10):
+    """SQLite DB mein keyword search karo"""
+    try:
+        conn = sqlite3.connect("messages.db")
+        c = conn.cursor()
+        keywords = [w for w in keyword.lower().split() if len(w) > 3]
+        if not keywords:
+            keywords = keyword.lower().split()
+        conditions = " OR ".join(["LOWER(content) LIKE ?" for _ in keywords])
+        params = [f"%{k}%" for k in keywords]
+        params.append(limit)
+        c.execute(f"""SELECT channel_name, author_name, content, timestamp
+            FROM messages WHERE {conditions}
+            ORDER BY timestamp DESC LIMIT ?""", params)
+        rows = c.fetchall()
+        conn.close()
+        if rows:
+            results = [f"[#{r[0]}] {r[1]}: {r[2]} ({r[3]})" for r in rows]
+            return "=== MESSAGE HISTORY SEARCH ===\n" + "\n".join(results)
+        return ""
+    except Exception as e:
+        print(f"DB search error: {e}")
+        return ""
     if results:
         return "=== DISCORD AUDIT LOG CHANNELS ===\n" + "\n".join(results[:20])
     return ""
