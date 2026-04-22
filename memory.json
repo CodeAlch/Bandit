@@ -289,36 +289,6 @@
     "1495513257543471204": [
       {
         "role": "user",
-        "content": "ye channel draft vala kisne bnaya tha and kab bnaya tha?",
-        "time": "01:43:46"
-      },
-      {
-        "role": "assistant",
-        "content": "Ayush, main yaad rakh raha hoon ki sabse pehle jo text channel create hua woh 'draft' tha. Lekin mere paas yeh record nahi hai kisne create kiya tha aur kab create hua tha. Agar tum audit_log.md ka content paste kar do, to main usse analyse karke bata sakta hoon kisne aur kab yeh channel banaya gaya tha.",
-        "time": "01:43:50"
-      },
-      {
-        "role": "user",
-        "content": "hey kya tum merko btaoge ki general text channel ko kisne rename kiya hain?",
-        "time": "00:07:24"
-      },
-      {
-        "role": "assistant",
-        "content": "General text channel ko Ayush ne rename kiya tha. Audit log ke mutabiq, uska old_name 'general' tha aur usko 'lobby' rename kiya gaya. Ye action 2026-04-20 23:45:42 par perform kiya gaya tha.",
-        "time": "00:07:57"
-      },
-      {
-        "role": "user",
-        "content": "list all roles in this server",
-        "time": "14:10:11"
-      },
-      {
-        "role": "assistant",
-        "content": "Sure thing, Ayush! Here are the roles currently in **My Bot Testing Server**:\n\n1. **AutomationBot** \u2013 Administrator (position 11)\n2. **Owner** \u2013 position 10\n3. **Gamer** \u2013 position 9\n4. **League of Le",
-        "time": "14:10:19"
-      },
-      {
-        "role": "user",
         "content": "what about overwatch, apex legends, admin role?",
         "time": "14:11:39"
       },
@@ -386,6 +356,36 @@
         "role": "assistant",
         "content": "Ayush, I checked the audit logs and the current server state. There is no role named **Testing Role 3** in the server right now, and there\u2019s no delete action recorded for it \u2014 meaning it was never cre",
         "time": "23:44:19"
+      },
+      {
+        "role": "user",
+        "content": "hey jra btaoge ki testing 123 kerke kabhi koi text channel create hua tha?",
+        "time": "00:18:52"
+      },
+      {
+        "role": "assistant",
+        "content": "Ayush, maine audit logs check kiye. Sirf do text channel create hue hain: #default-logs aur #carl-bot-logs, dono Audits category mein. Koi aur text channel 'testing 123' se related nahi bana. Agar tum",
+        "time": "00:19:09"
+      },
+      {
+        "role": "user",
+        "content": "jra lobby channel mein testing 123 search kro then btao",
+        "time": "00:19:51"
+      },
+      {
+        "role": "assistant",
+        "content": "Ayush, maine lobby channel mein 'testing 123' dhundha, lekin koi aisa message nahi mila. Agar tum koi specific message dhoondh rahe ho, toh thoda aur detail de do!",
+        "time": "00:19:59"
+      },
+      {
+        "role": "user",
+        "content": "hey can you tell me the current time?",
+        "time": "00:45:39"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey Ayush! I don\u2019t have access to a real\u2011time clock, so I can\u2019t give you the exact current time. You can check your device or system clock for the most accurate time. If you need help with anything el",
+        "time": "00:45:51"
       }
     ],
     "1496081815176351866": [
