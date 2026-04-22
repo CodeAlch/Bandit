@@ -659,7 +659,8 @@ async def handle_plain_message(message):
             if cross_channel:
                 conv_history = conv_history + "\n\n" + cross_channel
             recent_actions = brain.get_recent_actions(10) if brain else ""
-            audit_search = brain.search_audit_log(user_input) if brain else ""
+            
+            audit_search = await search_discord_log_channels(message.guild, user_input)
             if audit_search:
                 conv_history = conv_history + "\n\n" + audit_search
             if brain:
@@ -711,6 +712,46 @@ async def handle_plain_message(message):
         print(f"❌ Plain message error: {e}")
         traceback.print_exc()
 
+async def search_discord_log_channels(guild, keyword):
+    """Audit channels mein keyword se search karo"""
+    print(f"🔍 Searching audit channels for: {keyword}")
+    print(f"🔍 Searching audit channels for: {keyword}")
+    # Relevant channels map
+    audit_channels = [
+        "role-delete", "role-create", "member-ban", "member-unban",
+        "member-join", "member-leave", "message-delete",
+        "channel-create", "channel-delete", "member-role-add", "member-role-remove"
+    ]
+
+    keyword_lower = keyword.lower()
+
+    results = []
+    for ch_name in audit_channels:
+        channel = discord.utils.get(guild.text_channels, name=ch_name)
+        if not channel:
+            continue
+        async for message in channel.history(limit=50):
+            if message.embeds:
+                for embed in message.embeds:
+                    # Embed text banana
+                    parts = []
+                    if embed.title:
+                        parts.append(embed.title)
+                    if embed.description:
+                        parts.append(embed.description)
+                    for field in embed.fields:
+                        parts.append(f"{field.name}: {field.value}")
+                    full_text = " | ".join(parts)
+                    timestamp = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
+
+                    # Keyword match ya recent entries
+                    if keyword_lower in full_text.lower():
+                        results.append(f"[{ch_name}] [{timestamp}] {full_text}")
+
+    if results:
+        return "=== DISCORD AUDIT LOG CHANNELS ===\n" + "\n".join(results[:20])
+    return ""
+
 @bot.event
 async def on_guild_role_delete(role):
     log_channel = discord.utils.get(role.guild.text_channels, name="role-delete")
@@ -746,7 +787,7 @@ async def on_guild_role_create(role):
             executor_id = entry.user.id
             break
     embed = discord.Embed(
-        description=f"\u2705\ **{role.name}** created by **{executor.name if executor else 'Unknown'}** (User ID: `{executor_id if executor_id else 'N/A'}`)",
+        description=f"✅ **{role.name}** created by **{executor.name if executor else 'Unknown'}** (User ID: `{executor_id if executor_id else 'N/A'}`)",
         color=discord.Color.green(),
         timestamp=discord.utils.utcnow()
     )
