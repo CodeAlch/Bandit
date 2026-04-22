@@ -742,3 +742,21 @@ Created: 2026-02-11 13:35
 - **User:** Ayush
 - **Details:** {'action': 'set_role', 'channel_name': 'dyno-bot-update-status', 'role_name': 'Moderator'}
 
+### ✅ delete_role
+- **Time:** 2026-04-22 22:33:39
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Testing Role 3'}
+
+### ✅ create_role
+- **Time:** 2026-04-22 22:38:28
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_role', 'role_name': 'Testing Role 4', 'color': '#808080', 'permissions': []}
+
+### ✅ delete_role
+- **Time:** 2026-04-22 22:38:29
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_role', 'role_name': 'Testing Role 4'}
+

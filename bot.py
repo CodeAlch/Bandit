@@ -711,7 +711,46 @@ async def handle_plain_message(message):
         print(f"❌ Plain message error: {e}")
         traceback.print_exc()
 
+@bot.event
+async def on_guild_role_delete(role):
+    log_channel = discord.utils.get(role.guild.text_channels, name="role-delete")
+    if not log_channel:
+        return
+    executor = None
+    executor_id = None
+    await asyncio.sleep(1)
+    async for entry in role.guild.audit_logs(limit=5, action=discord.AuditLogAction.role_delete):
+        if entry.target.id == role.id:
+            executor = entry.user
+            executor_id = entry.user.id
+            break
+    embed = discord.Embed(
+        description=f"\U0001f5d1\ufe0f **{role.name}** deleted by **{executor.name if executor else 'Unknown'}** (User ID: `{executor_id if executor_id else 'N/A'}`)",
+        color=discord.Color.red(),
+        timestamp=discord.utils.utcnow()
+    )
+    await log_channel.send(embed=embed)
 
+
+@bot.event
+async def on_guild_role_create(role):
+    log_channel = discord.utils.get(role.guild.text_channels, name="role-create")
+    if not log_channel:
+        return
+    executor = None
+    executor_id = None
+    await asyncio.sleep(1)
+    async for entry in role.guild.audit_logs(limit=5, action=discord.AuditLogAction.role_create):
+        if entry.target.id == role.id:
+            executor = entry.user
+            executor_id = entry.user.id
+            break
+    embed = discord.Embed(
+        description=f"\u2705\ **{role.name}** created by **{executor.name if executor else 'Unknown'}** (User ID: `{executor_id if executor_id else 'N/A'}`)",
+        color=discord.Color.green(),
+        timestamp=discord.utils.utcnow()
+    )
+    await log_channel.send(embed=embed)
 if __name__ == '__main__':
     print("🚀 Bot v6")
     try:
