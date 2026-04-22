@@ -745,7 +745,8 @@ async def search_discord_log_channels(guild, keyword):
                     timestamp = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
 
                     # Keyword match ya recent entries
-                    if keyword_lower in full_text.lower():
+                    keywords = [w for w in keyword_lower.split() if len(w) > 3]
+                    if any(k in full_text.lower() for k in keywords):
                         results.append(f"[{ch_name}] [{timestamp}] {full_text}")
 
     if results:
