@@ -793,32 +793,58 @@ async def search_discord_log_channels(guild, keyword):
                         results.append(f"[{ch_name}] [{timestamp}] {full_text}")
 
 
-def search_messages_db(keyword, limit=10):
-    """SQLite DB mein keyword search karo"""
+def search_messages_db(keyword, limit=None):
+    """SQLite DB mein smart search — sequence aware, channel aware"""
     try:
         conn = sqlite3.connect("messages.db")
         c = conn.cursor()
-        keywords = [w for w in keyword.lower().split() if len(w) > 3]
-        if not keywords:
-            keywords = keyword.lower().split()
-        conditions = " OR ".join(["LOWER(content) LIKE ?" for _ in keywords])
-        params = [f"%{k}%" for k in keywords]
-        params.append(limit)
-        c.execute(f"""SELECT channel_name, author_name, content, timestamp
-            FROM messages WHERE {conditions}
-            ORDER BY timestamp DESC LIMIT ?""", params)
-        rows = c.fetchall()
+        kw = keyword.lower()
+
+        # Channel filter detect karo
+        channel_filter = None
+        channel_match = re.search(r'\b(in|channel|mein)\s+#?(\S+)', kw)
+        if channel_match:
+            channel_filter = channel_match.group(2).strip("?.,!")
+
+        # Saare messages fetch karo (channel filter ke saath agar ho)
+        if channel_filter:
+            c.execute("""SELECT channel_name, author_name, content, timestamp
+                FROM messages WHERE LOWER(channel_name) = ?
+                ORDER BY timestamp ASC""", (channel_filter,))
+        else:
+            c.execute("""SELECT channel_name, author_name, content, timestamp
+                FROM messages ORDER BY timestamp ASC""")
+        all_rows = c.fetchall()
         conn.close()
-        if rows:
-            results = [f"[#{r[0]}] {r[1]}: {r[2]} ({r[3]})" for r in rows]
-            return "=== MESSAGE HISTORY SEARCH ===\n" + "\n".join(results)
-        return ""
+
+        if not all_rows:
+            return ""
+
+        # Sequence number ke saath format karo
+        numbered = []
+        for i, r in enumerate(all_rows, 1):
+            numbered.append(f"[MSG #{i}] [{r[3]}] [#{r[0]}] {r[1]}: {r[2]}")
+
+        # Keyword search agar koi specific word ho
+        skip_words = {"second","first","third","top","oldest","latest","recent",
+                      "message","messages","kon","kya","tha","hai","mein","ka",
+                      "lobby","server","channel","in","the","a","an","of","and"}
+        keywords = [w for w in kw.split() if w not in skip_words and len(w) > 2]
+
+        if keywords:
+            filtered = [n for n in numbered if any(k in n.lower() for k in keywords)]
+            result_lines = filtered[:limit] if filtered else numbered[:limit]
+        else:
+            result_lines = numbered[:limit]
+
+        total = len(all_rows)
+        header = f"=== MESSAGE HISTORY (Total: {total} messages, shown: {len(result_lines)}) ===\n"
+        header += f"NOTE: MSG #1 = oldest, MSG #{total} = most recent\n"
+        return header + "\n".join(result_lines)
+
     except Exception as e:
         print(f"DB search error: {e}")
         return ""
-    if results:
-        return "=== DISCORD AUDIT LOG CHANNELS ===\n" + "\n".join(results[:20])
-    return ""
 
 @bot.event
 async def on_guild_role_delete(role):
