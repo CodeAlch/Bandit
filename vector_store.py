@@ -1,3 +1,6 @@
+import os
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"
 import sqlite3
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction

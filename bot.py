@@ -641,7 +641,7 @@ async def status(ctx):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send(f"❓ Try `!bothelp`")
+        pass  # Unknown commands ko ignore karo
     elif isinstance(error, commands.CommandInvokeError):
         original = getattr(error, 'original', error)
         print(f"❌ Command error: {type(original).__name__}: {original}")
@@ -658,10 +658,15 @@ async def handle_plain_message(message):
         return
     if not message.guild:
         return
-    if message.content.startswith('!'):
+    if message.content.startswith("!") and not message.content.lower().startswith("!audit"):
         return
 
     user_input = message.content.strip()
+    # !audit prefix handle karo
+    force_audit = False
+    if user_input.lower().startswith("!audit"):
+        user_input = user_input[6:].strip()
+        force_audit = True
     if not user_input:
         return
 
@@ -700,7 +705,7 @@ async def handle_plain_message(message):
             recent_actions = brain.get_recent_actions(10) if brain else ""
             
             audit_keywords = ["audit","ban","kick","role","permission","mod","deleted","edited","muted","warned","!audit","punish","removed","added","changed","who got","kise","kab","kyun hata"]
-            if any(w in user_input.lower() for w in audit_keywords):
+            if force_audit or any(w in user_input.lower() for w in audit_keywords):
                 audit_search = await search_discord_log_channels(message.guild, user_input)
             else:
                 audit_search = None
@@ -763,7 +768,6 @@ async def handle_plain_message(message):
 async def search_discord_log_channels(guild, keyword):
     """Audit channels mein keyword se search karo"""
     print(f"🔍 Searching audit channels for: {keyword}")
-    print(f"🔍 Searching audit channels for: {keyword}")
     # Relevant channels map
     audit_channels = [
         "role-delete", "role-create", "member-ban", "member-unban",
@@ -778,7 +782,7 @@ async def search_discord_log_channels(guild, keyword):
         channel = discord.utils.get(guild.text_channels, name=ch_name)
         if not channel:
             continue
-        async for message in channel.history(limit=50):
+        async for message in channel.history(limit=200):
             if message.embeds:
                 for embed in message.embeds:
                     # Embed text banana
