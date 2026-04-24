@@ -8,6 +8,7 @@ from turtle import pos
 from operator import pos
 
 import discord
+from vector_store import search_messages_vector, add_message_to_index, build_vector_index
 from discord.ext import commands
 import os
 import sys
@@ -703,7 +704,7 @@ async def handle_plain_message(message):
                 conv_history = conv_history + "\n\n" + audit_search
 
             # DB mein bhi search karo
-            db_search = search_messages_db(user_input)
+            db_search = search_messages_vector(user_input)
             if db_search:
                 conv_history = conv_history + "\n\n" + db_search
             if brain:
