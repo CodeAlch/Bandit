@@ -820,3 +820,51 @@ Created: 2026-02-11 13:35
 - **User:** Ayush
 - **Details:** {'action': 'remove_role_from_user', 'role_name': 'Moderator', 'user_name': 'AutomationBot'}
 
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:17:31
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'game-chat'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:17:31
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'stream-chat'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:17:32
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'tournament-chat'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:18:45
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'Gaming'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:18:45
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'Streamers'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:18:45
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'Tournaments'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:18:45
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'Voice Lounge'}
+
+### ✅ delete_channel
+- **Time:** 2026-04-24 22:28:04
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'Streamers'}
+
