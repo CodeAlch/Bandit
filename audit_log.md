@@ -760,3 +760,57 @@ Created: 2026-02-11 13:35
 - **User:** Ayush
 - **Details:** {'action': 'delete_role', 'role_name': 'Testing Role 4'}
 
+### ✅ delete_channel
+- **Time:** 2026-04-24 20:18:27
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'delete_channel', 'channel_name': 'draft'}
+
+### ✅ create_category
+- **Time:** 2026-04-24 20:34:55
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_category', 'category_name': 'Gaming'}
+
+### ✅ create_category
+- **Time:** 2026-04-24 20:34:56
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_category', 'category_name': 'Streamers'}
+
+### ✅ create_category
+- **Time:** 2026-04-24 20:34:56
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_category', 'category_name': 'Tournaments'}
+
+### ✅ create_category
+- **Time:** 2026-04-24 20:34:57
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_category', 'category_name': 'Voice Lounge'}
+
+### ✅ create_channel
+- **Time:** 2026-04-24 20:34:58
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_channel', 'channel_type': 'text', 'channel_name': 'game-chat', 'category': 'Gaming'}
+
+### ✅ create_channel
+- **Time:** 2026-04-24 20:34:59
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_channel', 'channel_type': 'text', 'channel_name': 'stream-chat', 'category': 'Streamers'}
+
+### ✅ create_channel
+- **Time:** 2026-04-24 20:35:00
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_channel', 'channel_type': 'text', 'channel_name': 'tournament-chat', 'category': 'Tournaments'}
+
+### ✅ create_channel
+- **Time:** 2026-04-24 20:35:00
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'create_channel', 'channel_type': 'voice', 'channel_name': 'voice-lounge', 'category': 'Voice Lounge'}
+

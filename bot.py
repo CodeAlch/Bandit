@@ -652,7 +652,7 @@ async def on_command_error(ctx, error):
         await ctx.send(f"❌ {str(error)[:150]}")
 
 
-@bot.listen("on_message")
+@bot.event
 async def handle_plain_message(message):
     if message.author.bot:
         return
@@ -699,7 +699,11 @@ async def handle_plain_message(message):
                 conv_history = conv_history + "\n\n" + cross_channel
             recent_actions = brain.get_recent_actions(10) if brain else ""
             
-            audit_search = await search_discord_log_channels(message.guild, user_input)
+            audit_keywords = ["audit","ban","kick","role","permission","mod","deleted","edited","muted","warned","!audit","punish","removed","added","changed","who got","kise","kab","kyun hata"]
+            if any(w in user_input.lower() for w in audit_keywords):
+                audit_search = await search_discord_log_channels(message.guild, user_input)
+            else:
+                audit_search = None
             if audit_search:
                 conv_history = conv_history + "\n\n" + audit_search
 
