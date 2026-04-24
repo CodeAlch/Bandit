@@ -768,39 +768,64 @@ async def handle_plain_message(message):
 async def search_discord_log_channels(guild, keyword):
     """Audit channels mein keyword se search karo"""
     print(f"🔍 Searching audit channels for: {keyword}")
-    # Relevant channels map
+
     audit_channels = [
-        "role-delete", "role-create", "member-ban", "member-unban",
-        "member-join", "member-leave", "message-delete",
-        "channel-create", "channel-delete", "member-role-add", "member-role-remove"
+        "role-delete", "role-create", "role-update",
+        "member-ban", "member-unban", "member-join", "member-leave",
+        "message-delete", "message-edit",
+        "channel-create", "channel-delete",
+        "member-role-add", "member-role-remove",
+        "nickname-ch", "default-logs", "carl-bot-logs", "moderator-c", "image-delete"
     ]
 
-    keyword_lower = keyword.lower()
-
+    keyword_lower = keyword.lower().strip()
     results = []
+
+    target_channel = None
     for ch_name in audit_channels:
+        if ch_name in keyword_lower:
+            target_channel = ch_name
+            break
+
+    channels_to_search = [target_channel] if target_channel else audit_channels
+
+    for ch_name in channels_to_search:
         channel = discord.utils.get(guild.text_channels, name=ch_name)
         if not channel:
             continue
-        async for message in channel.history(limit=200):
-            if message.embeds:
-                for embed in message.embeds:
-                    # Embed text banana
-                    parts = []
-                    if embed.title:
-                        parts.append(embed.title)
-                    if embed.description:
-                        parts.append(embed.description)
-                    for field in embed.fields:
-                        parts.append(f"{field.name}: {field.value}")
-                    full_text = " | ".join(parts)
-                    timestamp = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
 
-                    # Keyword match ya recent entries
-                    keywords = [w for w in keyword_lower.split() if len(w) > 3]
-                    if any(k in full_text.lower() for k in keywords):
-                        results.append(f"[{ch_name}] [{timestamp}] {full_text}")
+        async for message in channel.history(limit=50):
+            parts = []
 
+            if message.content:
+                parts.append(message.content)
+
+            for embed in message.embeds:
+                if embed.title:
+                    parts.append(embed.title)
+                if embed.description:
+                    parts.append(embed.description)
+                for field in embed.fields:
+                    parts.append(f"{field.name}: {field.value}")
+
+            if not parts:
+                continue
+
+            full_text = " | ".join(parts)
+            timestamp = message.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+            if target_channel and any(x in keyword_lower for x in ["kya kya", "entries", "likha", "sab", "show", "history"]):
+                results.append(f"[{ch_name}] [{timestamp}] {full_text[:500]}")
+            else:
+                keywords = [w for w in keyword_lower.split() if len(w) > 2 and w not in {"audit","channel","mein","me","kya","kya?"}]
+                if not keywords or any(k in full_text.lower() for k in keywords):
+                    results.append(f"[{ch_name}] [{timestamp}] {full_text[:500]}")
+
+    if not results:
+        return ""
+
+    header = f"=== AUDIT LOG RESULTS ({len(results)} entries) ===\n"
+    return header + "\n".join(results[:15])
 
 def search_messages_db(keyword, limit=None):
     """SQLite DB mein smart search — sequence aware, channel aware"""
@@ -895,6 +920,14 @@ async def on_guild_role_create(role):
         timestamp=discord.utils.utcnow()
     )
     await log_channel.send(embed=embed)
+    
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    await bot.process_commands(message)
+    await handle_plain_message(message)
+
 if __name__ == '__main__':
     print("🚀 Bot v6")
     try:

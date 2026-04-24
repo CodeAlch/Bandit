@@ -814,3 +814,9 @@ Created: 2026-02-11 13:35
 - **User:** Ayush
 - **Details:** {'action': 'create_channel', 'channel_type': 'voice', 'channel_name': 'voice-lounge', 'category': 'Voice Lounge'}
 
+### ✅ remove_role_from_user
+- **Time:** 2026-04-24 22:12:49
+- **Server:** My Bot Testing Server
+- **User:** Ayush
+- **Details:** {'action': 'remove_role_from_user', 'role_name': 'Moderator', 'user_name': 'AutomationBot'}
+
